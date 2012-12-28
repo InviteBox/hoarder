@@ -5,8 +5,8 @@ import uuid
 from django.conf import settings
 
 from hoarder.models import RelVisitor
-from hoarder import register_request_event
-from hoarder.tasks import deduplicate, create_visitor, set_user
+from hoarder import register_request_event, _get_visitor_id
+from hoarder.tasks import deduplicate, set_user
 
 RE_HEADERS = re.compile('^HTTP_')
 
@@ -24,16 +24,7 @@ class LoggingMiddleware(object):
                     in request.META.items() if header.startswith('HTTP_'))
 
     def process_request(self, request):
-        if 'visitor_id' in request.session:
-            visitor_id = request.session['visitor_id']
-            if type(visitor_id) != str:
-                visitor_id = str(visitor_id)
-                request.session['visitor_id'] = visitor_id
-            
-        else:
-            visitor_id = str(uuid.uuid4())
-            create_visitor(visitor_id)
-            request.session['visitor_id'] = visitor_id
+        visitor_id = _get_visitor_id(request)
         request_log = {'headers' : self._get_headers(request),
                        'path' : request.path,
                        'method' : request.method,
@@ -56,7 +47,7 @@ class LoggingMiddleware(object):
 
 class DeduplicationMiddleware(object):
     def process_request(self, request):
-        visitor_id = request.session['visitor_id']
+        visitor_id = _get_visitor_id(request)
         if request.user.is_authenticated():
             try:
                 rv = request.user.relvisitor

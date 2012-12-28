@@ -1,14 +1,28 @@
 from datetime import datetime
+import uuid
 
 from hoarder.models import RelVisitor
 from hoarder import tasks
+
+def _get_visitor_id(request):
+    if 'visitor_id' in request.session:
+        visitor_id = request.session['visitor_id']
+        if type(visitor_id) != str:
+            visitor_id = str(visitor_id)
+            request.session['visitor_id'] = visitor_id
+    else:
+        visitor_id = str(uuid.uuid4())
+        tasks.create_visitor.delay(visitor_id)
+        request.session['visitor_id'] = visitor_id
+    return visitor_id
+    
 
 def register_request_event(request, 
                            event_type, 
                            event_data={},
                            when=None):
     tasks.register_event.delay(event_type,
-                               request.session['visitor_id'],
+                               _get_visitor_id(request),
                                when=when,
                                data=event_data)
     
@@ -29,5 +43,5 @@ def register_user_event(user,
 
 
 def label_visitor(request, label):
-    tasks.label_visitor.delay(request.session['visitor_id'],
+    tasks.label_visitor.delay(_get_visitor_id(request),
                               label)
