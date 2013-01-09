@@ -32,7 +32,7 @@ def register_user_event(user,
                         event_data={},
                         when=None):
     try:
-        visitor_id = user.relvisitor
+        visitor_id = user.relvisitor.visitor_id
     except RelVisitor.DoesNotExist:
         visitor_id = user.id
     tasks.register_event.delay(event_type,
