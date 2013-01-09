@@ -50,7 +50,7 @@ class KISSMetricsBackend(object):
         km.identify(visitor_id)
         if when:
             data['_d'] = 1
-            data['_t'] = int(time.mktime(when).timetuple())
+            data['_t'] = int(time.mktime(when.timetuple()))
         km.record(event_type, data)
         
 
