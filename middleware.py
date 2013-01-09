@@ -58,5 +58,5 @@ class DeduplicationMiddleware(object):
                 RelVisitor.objects.create(user=request.user,
                                           visitor_id=visitor_id)
                 set_user.delay(visitor_id,
-                               request.user)
+                               request.user.id)
         
