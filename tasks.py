@@ -28,7 +28,7 @@ def register_event(event_type,
 def label_visitor(visitor_id,
                   label):    
     for backend in get_backends():
-        backend.label_visitor('visitor_id',
+        backend.label_visitor(visitor_id,
                               label)
 
 
