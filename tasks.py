@@ -9,7 +9,7 @@ from hoarder.backends import get_backends
 @task
 def create_visitor(visitor_id):
     for backend in get_backends():
-        backend.create_visitor('visitor_id')
+        backend.create_visitor(visitor_id)
 
 
 @task
