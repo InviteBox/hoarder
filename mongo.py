@@ -48,7 +48,9 @@ class MongoBackend(object):
                       multi=True)
         old_visitor = visitors.find_one({'id' : from_visitor_id})
         new_visitor = visitors.find_one({'id' : to_visitor_id})
-        new_visitor['labels'].append(old_visitor['labels'])
+        labels = new_visitor.get('labels', [])
+        labels.append(old_visitor.get('labels',[]))
+        new_visitor['labels'] = labels
         visitors.save(new_visitor)
         visitors.remove({'id': from_visitor_id})
         
