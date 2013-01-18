@@ -7,6 +7,7 @@ The ultimate analytics kit for Django.
 Hoarder in an event tracking API for Django that supports multiple analytics backends: KISSMetrics, Google Analytics, local MongoDB. 
 
 Hoarder is for you if:
+
 - You want to use multiple web analytics tools without duplicating code for each of them
 - You want to be able to swap analytics packages without changing your code
 - You want to have a local copy of all your analytics data
