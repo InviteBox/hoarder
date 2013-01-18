@@ -30,7 +30,7 @@ class MongoBackend(object):
                        
     def label_visitor(self, 
                       visitor_id,
-                      lablel):
+                      label):
         visitor = visitors.find_one({'id' : visitor_id})
         labels = visitor.get('labels', [])
         labels.append(label)
