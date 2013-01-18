@@ -57,11 +57,11 @@ class KISSMetricsBackend(object):
 
     def label_visitor(self,
                       visitor_id,
-                      lablel):
+                      label):
         from KISSmetrics import KM
         km = KM(settings.KISSMETRICS_API_KEY)
         km.identify(visitor_id)
-        km.set({'label':1})
+        km.set({label:1})
 
     def deduplicate(self,
                     from_visitor_id,
