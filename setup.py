@@ -18,7 +18,7 @@ setup(
     version = "0.0.1",
     author = "Alexander Tereshkin",
     author_email = "atereshkin@invitebox.com",
-    description = ("The ultimate analytics kit for Django.",
+    description = ("The ultimate analytics kit for Django."),
     license = "BSD",
     keywords = "django analytics",
     url = "https://github.com/InviteBox/hoarder",
