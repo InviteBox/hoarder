@@ -13,6 +13,9 @@ events = db.events
 
 
 class MongoBackend(object):
+
+    is_async = True
+
     def get_context(self, request):
         return {}
 

@@ -3,6 +3,7 @@ import uuid
 
 from hoarder.models import RelVisitor
 from hoarder import tasks
+from hoarder.backends import get_sync_backends
 
 def _get_visitor_id(request):
     if 'visitor_id' in request.session:
@@ -13,6 +14,8 @@ def _get_visitor_id(request):
     else:
         visitor_id = str(uuid.uuid4())
         tasks.create_visitor.delay(visitor_id)
+        for b in get_sync_backends(request):
+            b.create_visitor(visitor_id)
         request.session['visitor_id'] = visitor_id
     return visitor_id
     
@@ -25,6 +28,12 @@ def register_request_event(request,
                                _get_visitor_id(request),
                                when=when,
                                data=event_data)
+    for b in get_sync_backends(request):
+        b.register_event(event_type,
+                         _get_visitor_id(request),
+                         when=when,
+                         data=event_data)
+
     
 
 def register_user_event(user, 
@@ -45,3 +54,7 @@ def register_user_event(user,
 def label_visitor(request, label):
     tasks.label_visitor.delay(_get_visitor_id(request),
                               label)
+    for b in get_sync_backends(request):
+        b.label_visitor(_get_visitor_id(request),
+                        label)
+        

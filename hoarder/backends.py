@@ -20,10 +20,23 @@ def get_backends():
     return _backends
 
 
-        
+def get_sync_backends(request):
+    for backend_path in settings.HOARDER_BACKENDS:
+        be_module, be_classname = backend_path.rsplit('.', 1)
+        mod = import_module(be_module)
+        be_class = getattr(mod, be_classname)
+        if not be_class.is_async:
+            yield be_class(request)
+    
+
+def get_async_backends():
+    for b in get_backends():
+        if b.is_async:
+            yield b
     
         
 class KISSMetricsBackend(object):
+    is_async = True
 
     def get_context(self, request):
         if not request.session.get('identify_kiss'):
@@ -93,8 +106,9 @@ class KISSMetricsBackend(object):
 
 
 class LogBackend(object):
+    is_async = False
     
-    def __init__(self):
+    def __init__(self, request=None):
         self.logger = logging.getLogger('hoarder')
 
     def get_context(self, request):

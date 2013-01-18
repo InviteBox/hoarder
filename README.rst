@@ -31,7 +31,8 @@ Supported backends
 ------------------
 - `hoarder.backends.LogBackend` - just outputs all events to log for debug purposes
 - `hoarder.mongo.MongoBackend` - stores all events in a local MongoDB database
-- `hoarder.backends.KISSMetricsBackend` - sends all events to KISSMetrics 
+- `hoarder.backends.KISSMetricsBackend` - KISSMetrics integration
+- `hoarder.ga.GABackend` - Google Analytics integration
 
 --------
 Settings
