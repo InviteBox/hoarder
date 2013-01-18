@@ -3,3 +3,7 @@
 *.pyc
 local_settings.py
 *~
+env
+dist
+build
+hoarder.egg-info/

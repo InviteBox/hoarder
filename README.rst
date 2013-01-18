@@ -17,7 +17,12 @@ Installation
 1. Run `pip install hoarder`
 2. Add `'hoarder'` app to `INSTALLED_APPS` 
 3. Add `'hoarder.middleware.LoggingMiddleware'` and `'hoarder.middleware.DeduplicationMiddleware'` to `MIDDLEWARE_CLASSES`
-4. Add `'hoarder.context_processors.tracking'` to `TEMPLATE_CONTEXT_PROCESSORS`
+4. Add the following to the beginning of head section in your base template:
+   ::
+
+      {% load hoarder_tags %}
+      {% tracking_code %}
+
 5. Specify the backends you want to use in `HOARDER_BACKENDS` settings variable
 
 ------------------

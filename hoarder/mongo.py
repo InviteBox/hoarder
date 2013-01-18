@@ -61,3 +61,6 @@ class MongoBackend(object):
                  user):
         pass
 
+    def get_tracking_code(self,
+                          context):
+        return ''

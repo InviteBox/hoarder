@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.conf import settings
 from django.utils.importlib import import_module
+from django.template.loader import render_to_string
 
 _backends = None
 
@@ -77,6 +78,19 @@ class KISSMetricsBackend(object):
         km.identify(visitor_id)
         km.set({'user_id' : user.id, 'name' : user.get_full_name() })
 
+    def get_tracking_code(self,
+                          context):
+        if not context['request'].session.get('identify_kiss'):
+            identify_kiss = True
+            request.session['identify_kiss'] = True
+        else:
+            identify_kiss = False
+        
+        return render_to_string('hoarder/km.html',
+                                {'identify_kiss' : identify_kiss,
+                                 'KISSMETRICS_API_KEY' : settings.KISSMETRICS_API_KEY},
+                                context_instance=context)
+
 
 class LogBackend(object):
     
@@ -115,4 +129,7 @@ class LogBackend(object):
                  user):
         self.logger.info('set_user(%s, %s)'%(repr(visitor_id),
                                              repr(user)))
-        
+
+    def get_tracking_code(self,
+                          context):
+        return ''
