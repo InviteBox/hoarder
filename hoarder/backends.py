@@ -95,7 +95,7 @@ class KISSMetricsBackend(object):
                           context):
         if not context['request'].session.get('identify_kiss'):
             identify_kiss = True
-            request.session['identify_kiss'] = True
+            context['request'].session['identify_kiss'] = True
         else:
             identify_kiss = False
         
