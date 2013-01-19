@@ -15,14 +15,14 @@ else:
 
 setup(
     name = "hoarder",
-    version = "0.0.4",
+    version = "0.0.5",
     author = "Alexander Tereshkin",
     author_email = "atereshkin@invitebox.com",
     description = ("Django analytics kit for the data-obsessed."),
     license = "BSD",
     keywords = "django analytics",
     url = "https://github.com/InviteBox/hoarder",
-    packages=['hoarder', ],
+    packages=['hoarder', 'hoarder.templatetags'],
     long_description=long_description,
     install_requires=('django-celery'),
     classifiers=[
