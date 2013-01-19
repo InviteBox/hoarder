@@ -15,7 +15,7 @@ else:
 
 setup(
     name = "hoarder",
-    version = "0.0.3",
+    version = "0.0.4",
     author = "Alexander Tereshkin",
     author_email = "atereshkin@invitebox.com",
     description = ("Django analytics kit for the data-obsessed."),
