@@ -2,9 +2,9 @@
 Hoarder
 =======
 
-The ultimate analytics kit for Django.
+Django analytics kit for the data-obsessed.
 
-Hoarder in an event tracking API for Django that supports multiple analytics backends: KISSMetrics, Google Analytics, local MongoDB. 
+Hoarder in an event tracking API for Django that supports multiple analytics backends: KISSMetrics, Google Analytics, local MongoDB storage. 
 
 Hoarder is for you if:
 
