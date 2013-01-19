@@ -15,10 +15,10 @@ else:
 
 setup(
     name = "hoarder",
-    version = "0.0.2",
+    version = "0.0.3",
     author = "Alexander Tereshkin",
     author_email = "atereshkin@invitebox.com",
-    description = ("The ultimate analytics kit for Django."),
+    description = ("Django analytics kit for the data-obsessed."),
     license = "BSD",
     keywords = "django analytics",
     url = "https://github.com/InviteBox/hoarder",
