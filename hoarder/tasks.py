@@ -6,13 +6,13 @@ from celery.decorators import task
 from hoarder.backends import get_async_backends
     
 
-@task
+@task(ignore_result=True)
 def create_visitor(visitor_id):
     for backend in get_async_backends():
         backend.create_visitor(visitor_id)
 
 
-@task
+@task(ignore_result=True)
 def register_event(event_type,
                    visitor_id,
                    when,
@@ -24,7 +24,7 @@ def register_event(event_type,
                                data)
 
 
-@task
+@task(ignore_result=True)
 def label_visitor(visitor_id,
                   label):    
     for backend in get_async_backends():
@@ -32,7 +32,7 @@ def label_visitor(visitor_id,
                               label)
 
 
-@task
+@task(ignore_result=True)
 def deduplicate(from_visitor_id, to_visitor_id):
     for backend in get_async_backends():
         backend.deduplicate(from_visitor_id,
@@ -41,7 +41,7 @@ def deduplicate(from_visitor_id, to_visitor_id):
     return True
 
 
-@task
+@task(ignore_result=True)
 def set_user(visitor_id, user_id):
     user = User.objects.get(id=user_id)
     for backend in get_async_backends():
